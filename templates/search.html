@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{start}} to {{end}} -jobie gamao</title>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .box {
+        display: flex;
+        align-items: center;
+        margin: 10px;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .box img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Box style on hover */
+      .box:hover {
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather Data History</h1>
+    <h2>{{start}} to {{end}}</h2>
+
+    <div class="container">
+      <div class="box">
+        <img
+          id="refresh"
+          src="{{ url_for('static', filename='images/tc_history.png') }}"
+        />
+      </div>
+      <div class="box">
+        <img
+          id="refresh"
+          src="{{ url_for('static', filename='images/ws_history.png') }}"
+        />
+      </div>
+      <div class="box">
+        <img
+          id="refresh"
+          src="{{ url_for('static', filename='images/ap_history.png') }}"
+        />
+      </div>
+      <div class="box">
+        <img
+          id="refresh"
+          src="{{ url_for('static', filename='images/wl_history.png') }}"
+        />
+      </div>
+      <div class="box">
+        <img
+          id="refresh"
+          src="{{ url_for('static', filename='images/hu_history.png') }}"
+        />
+      </div>
+    </div>
+  </body>
+</html>
