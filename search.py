@@ -17,8 +17,8 @@ def getAverageGraph(date1, date2):
     xs = []  #date
     ys = {idx: [] for idx in range(5)}
 
-    query2 = f"SELECT AVG(ws), AVG(ap), AVG(wl), AVG(hu), AVG(tc), dtime FROM weatherdata WHERE dtime >= '{date1} 00:00:00' AND dtime <= '{date2} 23:59:59' GROUP BY date(dtime)"
-    mycursor.execute(query2)
+    myquery = f"SELECT AVG(ws), AVG(ap), AVG(wl), AVG(hu), AVG(tc), dtime FROM weatherdata WHERE dtime >= '{date1} 00:00:00' AND dtime <= '{date2} 23:59:59' GROUP BY date(dtime)"
+    mycursor.execute(myquery)
     myresult = mycursor.fetchall()
 
     for i in myresult:

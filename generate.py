@@ -1,21 +1,18 @@
-import serial
-import MySQLdb
 from datetime import datetime
 import mysql.connector
 import os
 import matplotlib
-
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
 def generate_graphs():
 
-    secsA = []
+    secPassed = []
 
-    datas = {ix: [] for ix in range(5)} #latest record
+    datas = {ix: [] for ix in range(5)}  #latest record
     xs = {ix: [] for ix in range(5)}  #time
-    ys = {ix: [] for ix in range(5)}  #sensor values at this second
+    ys = {ix: [] for ix in range(5)}  #sensor values at this minute
 
     while True:
         date = datetime.now()
@@ -23,7 +20,7 @@ def generate_graphs():
 
         # seconds at our time atm
         sec = str(date)[-2:]
-        secsA.append(int(sec))  # append to array
+        secPassed.append(int(sec))  # append to seconds Passed
 
         mydb = mysql.connector.connect(host="localhost",
                                        user="root",
@@ -39,7 +36,7 @@ def generate_graphs():
 
         for idx in range(5):
             datas[idx].append(float(myresult[idx]))
-            xs[idx], ys[idx] = setXY(seconds=secsA,
+            xs[idx], ys[idx] = setXY(seconds=secPassed,
                                      x=xs[idx],
                                      y=ys[idx],
                                      data=datas[idx])
@@ -55,7 +52,7 @@ def generate_graphs():
               xs=xs[0],
               ys=ys[0],
               xlabel=date,
-              ylabel="Anemometer",
+              ylabel="Anemometer Value",
               title="WindSpeed")
 
         graph(code="ap",
@@ -96,28 +93,28 @@ def graph(code, xs, ys, xlabel, ylabel, title, avg=0):
         plt.axhspan(55, 100, facecolor="red", alpha=0.2)
     elif code == "ws":
         if avg == 0:
-            plt.axis([0, 60, 400, 1900])
-        plt.axhspan(750, 1000, facecolor="yellow", alpha=0.2)
+            plt.axis([0, 60, 636, 1750])
+        plt.axhspan(636, 1000, facecolor="yellow", alpha=0.2)
         plt.axhspan(1001, 1500, facecolor="orange", alpha=0.2)
-        plt.axhspan(1500, 1600, facecolor="red", alpha=0.2)
+        plt.axhspan(1500, 1659, facecolor="red", alpha=0.2)
     elif code == "ap":
         if avg == 0:
-            plt.axis([0, 60, 200, 1000])
-        plt.axhspan(300, 500, facecolor="yellow", alpha=0.2)
+            plt.axis([0, 60, 115, 1400])
+        plt.axhspan(115, 500, facecolor="yellow", alpha=0.2)
         plt.axhspan(501, 600, facecolor="orange", alpha=0.2)
-        plt.axhspan(601, 1000, facecolor="red", alpha=0.2)
+        plt.axhspan(601, 1137, facecolor="red", alpha=0.2)
     elif code == "wl":
         if avg == 0:
-            plt.axis([0, 60, 120, 1200])
-        plt.axhspan(130, 300, facecolor="yellow", alpha=0.2)
+            plt.axis([0, 60, 0, 1100])
+        plt.axhspan(0, 300, facecolor="yellow", alpha=0.2)
         plt.axhspan(301, 500, facecolor="orange", alpha=0.2)
-        plt.axhspan(1000, 501, facecolor="red", alpha=0.2)
+        plt.axhspan(501, 1023, facecolor="red", alpha=0.2)
     elif code == "hu":
         if avg == 0:
-            plt.axis([0, 60, 100, 2000])
-        plt.axhspan(400, 600, facecolor="yellow", alpha=0.2)
+            plt.axis([0, 60, 500, 1700])
+        plt.axhspan(500, 600, facecolor="yellow", alpha=0.2)
         plt.axhspan(601, 900, facecolor="orange", alpha=0.2)
-        plt.axhspan(901, 1400, facecolor="red", alpha=0.2)
+        plt.axhspan(901, 1555, facecolor="red", alpha=0.2)
     else:
         return
 
